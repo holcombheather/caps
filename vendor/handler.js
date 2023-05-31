@@ -7,7 +7,7 @@ function vendorPayload() {
   return {
     "store": chance.company(),
     "orderId": chance.guid(),
-    "customer": chance.email(),
+    "customer": chance.name(),
     "address": chance.address(),
   }
 }
