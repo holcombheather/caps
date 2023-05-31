@@ -2,8 +2,13 @@
 
 const eventEmitter = require('../eventPool');
 
-const { vendorPayload, handleDelivered } = require('./handler');
+const { vendorPayload, handleConfirmation } = require('./handler');
 
-eventEmitter.on('DELIVERED', handleDelivered);
 
-eventEmitter.emit('PICKUP', vendorPayload());
+eventEmitter.on('DELIVERED', handleConfirmation);
+
+
+setInterval(() => {
+  const payload = vendorPayload();
+  eventEmitter.emit('PICKUP', payload);
+}, 5000);

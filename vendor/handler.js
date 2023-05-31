@@ -13,7 +13,7 @@ function vendorPayload() {
 }
 
 function handleConfirmation(payload) {
-  console.log(`Thank you for your order ${payload.customer}`);
+  console.log(`Thank you for your order ${payload.orderId}`);
 }
 
 module.exports = { vendorPayload, handleConfirmation }

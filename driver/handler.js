@@ -5,6 +5,10 @@ const eventEmitter = require('../eventPool');
 function handlePickup(payload) {
   console.log(`DRIVER: picked up ${payload.orderId}`);
   eventEmitter.emit('IN-TRANSIT', payload);
+
+  setTimeout(() => {
+    handleDelivered(payload);
+  }, 3000);
 }
 
 
