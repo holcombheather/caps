@@ -27,6 +27,8 @@ Begin the build of an application for a product called CAPS - The Code Academy P
 ### Collaborators
 
 - Referenced lecture demo for class 11 with instructor Ryan Gallaway
+- Used AI to help write tests using a template I authored by referencing the tests from the lecture above and modifying it to my needs.
+- Used AI to help debug issues with event sequencing to correct setInterval and setTimeout.
 
 ***
 
@@ -35,7 +37,7 @@ Begin the build of an application for a product called CAPS - The Code Academy P
 #### How to initialize this application
 1. Clone this repo into your local environment
 2. `npm init -y`
-3. `npm i jest chance`
+3. `npm i jest chance eslint`
 4. Copy Code Fellows config files `cp -r ../seattle-code-javascript-401d53/configs/ .`
 
 #### `.env` requirements
