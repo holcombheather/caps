@@ -35,10 +35,10 @@ Begin the build of an application for a product called CAPS - The Code Academy P
 #### How to initialize this application
 1. Clone this repo into your local environment
 2. `npm init -y`
-3. `npm i express cors dotenv jest supertest eslint pg sequelize sequelize-cli sqlite3`
+3. `npm i jest chance`
 4. Copy Code Fellows config files `cp -r ../seattle-code-javascript-401d53/configs/ .`
 
-#### `.env` requirements (where applicable)
+#### `.env` requirements
 
 - `PORT` - 3001  (see `.env.sample`)
 
@@ -57,15 +57,19 @@ CAPS Phase 1: Event Driven Applications
 - As a developer, I want to use industry standards for managing the state of each package.
 - As a developer, I want to create an event driven system so that I can write code that happens in response to events, in real time.
 
-#### Routes
-
-<!-- TODO: UPDATE  -->
-
 #### Tests
 
 To run tests, use the command `npm test` in your terminal
 
-<!-- TODO: UPDATE  -->
+ PASS  vendor/vendor-handler.test.js
+  Vendor Handler
+    ✓ emit pickup message and vendor order payload (2 ms)
+    ✓ log delivered message and emit vendor thank you payload (1 ms)
+
+ PASS  driver/driver-handler.test.js
+  Driver Handler
+    ✓ log pickup message and emit in-transit payload (1 ms)
+    ✓ log confirmation message and emit delivered payload
 
 #### UML
 ![UML image](UML_lab11.png)

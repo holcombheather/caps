@@ -10,7 +10,7 @@ function handlePickup(payload) {
 
 function handleDelivered(payload) {
   console.log(`DRIVER: delivered ${payload.orderId}`);
-  eventEmitter.emit('delivered', payload);
+  eventEmitter.emit('DELIVERED', payload);
 }
 
 module.exports = { handlePickup, handleDelivered };

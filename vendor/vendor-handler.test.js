@@ -1,14 +1,16 @@
 'use strict';
 
-const eventEmitter = require('../eventPool');
-const { vendorPayload, handleConfirmation } = require('./handler');
-
 jest.mock('../eventPool', () => {
   return {
     on: jest.fn(),
     emit: jest.fn(),
   };
 });
+
+const eventEmitter = require('../eventPool');
+const { vendorPayload, handleConfirmation } = require('./handler');
+
+
 
 console.log = jest.fn();
 
@@ -21,9 +23,14 @@ describe ('Vendor Handler', () => {
   });
 
   test('log delivered message and emit vendor thank you payload', () => {
-    console.log = jest.fn();
+    const payload = {
+      "store": 'testStore',
+      "orderId": 'testOrderId',
+      "customer": 'testCustomer',
+      "address": 'testAddress',
+    }
     handleConfirmation(payload);
-    expect(console.log).toHaveBeenCalledWith(); // TODO: update with anything?
+    expect(console.log).toHaveBeenCalledWith(`Thank you for your order ${payload.customer}`); 
   });
 
 });
