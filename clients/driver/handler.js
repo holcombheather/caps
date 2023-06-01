@@ -1,10 +1,13 @@
 'use strict';
 
-const eventEmitter = require('../eventPool');
+const io  = require('socket.io-client');
+const SERVER_URL = process.env.SERVER_URL || 'http://localhost:3001';
+let socket = io.connect(SERVER_URL);
+
 
 function handlePickup(payload) {
   console.log(`DRIVER: picked up ${payload.orderId}`);
-  eventEmitter.emit('IN-TRANSIT', payload);
+  socket.emit('IN-TRANSIT', payload);
 
   setTimeout(() => {
     handleDelivered(payload);
@@ -14,7 +17,7 @@ function handlePickup(payload) {
 
 function handleDelivered(payload) {
   console.log(`DRIVER: delivered ${payload.orderId}`);
-  eventEmitter.emit('DELIVERED', payload);
+  socket.emit('DELIVERED', payload);
 }
 
 module.exports = { handlePickup, handleDelivered };

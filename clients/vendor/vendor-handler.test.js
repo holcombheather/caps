@@ -7,7 +7,7 @@ jest.mock('../eventPool', () => {
   };
 });
 
-const eventEmitter = require('../eventPool');
+const eventEmitter = require('../../eventPool');
 const { vendorPayload, handleConfirmation } = require('./handler');
 
 
@@ -30,7 +30,7 @@ describe ('Vendor Handler', () => {
       "address": 'testAddress',
     }
     handleConfirmation(payload);
-    expect(console.log).toHaveBeenCalledWith(`Thank you for your order ${payload.customer}`); 
+    expect(console.log).toHaveBeenCalledWith(`Thank you for your order ${payload.customer}`);
   });
 
 });

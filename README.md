@@ -1,4 +1,4 @@
-# LAB - Class 11 | Event Driven Applications
+# LAB - Class 12 | Event Driven Applications
 
 ## Project: CAPS
 
