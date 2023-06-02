@@ -30,10 +30,10 @@ describe('Vendor Handler', () => {
   test('log delivered message and emit vendor thank you payload', () => {
     console.log = jest.fn();
     const payload = {
-      "store": 'testStore',
-      "orderId": 'testOrderId',
-      "customer": 'testCustomer',
-      "address": 'testAddress',
+      'store': 'testStore',
+      'orderId': 'testOrderId',
+      'customer': 'testCustomer',
+      'address': 'testAddress',
     };
     handleConfirmation(payload);
     expect(console.log).toHaveBeenCalledWith(`Thank you for your order ${payload.customer}`);

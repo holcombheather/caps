@@ -14,4 +14,5 @@ socket.emit('getAll', { queueId: 'driver' });
 socket.on('PICKUP', (payload) => {
   handlePickup(socket, payload);
   handleDelivered(socket, payload);
+  socket.emit('received', {queueId: 'driver', messageId: payload.messageId});
 });

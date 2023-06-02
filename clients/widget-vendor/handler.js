@@ -4,8 +4,8 @@ const Chance = require('chance');
 const chance = new Chance();
 const store = 'acme-widgets';
 
-const vendorPayload = (socket, order=null) => {
-  if(!order){
+const vendorPayload = (order = null) => {
+  if (!order) {
     order = {
       store,
       orderId: chance.guid(),
@@ -21,10 +21,11 @@ const vendorPayload = (socket, order=null) => {
   };
   console.log('VENDOR: ORDER ready for pickup:', payload);
   // socket.emit('PICKUP', payload);
+  return payload;
 };
 
 function handleConfirmation(payload) {
-  console.log(`Thank you for your order ${payload.customer}`);
+  console.log(`Thank you for your order ${payload.order.customer}`);
 }
 
 module.exports = { vendorPayload, handleConfirmation };

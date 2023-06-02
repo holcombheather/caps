@@ -1,4 +1,4 @@
-# LAB - Class 12 | Event Driven Applications
+# LAB - Class 13 | Message Queues
 
 ## Project: CAPS
 
@@ -10,11 +10,11 @@ A real-time service that allows for vendors, such as flower shops or restaurants
 
 ### Problem Domain
 
-**CAPS Phase 2**: Continue working on a multi-day build of our delivery tracking system, creating an event observable over a network with Socket.io.
+**CAPS Phase 3**: Complete work on a multi-day build of our delivery tracking system, adding queued delivery.
 
-In this phase, we’ll be moving away from using Node Events for managing a pool of events, instead refactoring to using the Socket.io libraries. This allows communication between Server and Client applications.
+In this phase, we are going to implement a system to guarantee that notification payloads are read by their intended subscriber. Rather than just triggering an event notification and hope that client applications respond, we’re going to implement a “Queue” system so that nothing gets lost. Every event sent will be logged and held onto by the server until the intended recipient acknowledges that they received the message. At any time, a subscriber can get all of the messages they might have missed.
 
-The intent here is to build the data services that would drive a suite of applications where we can see pickups and deliveries in real-time.
+In this final phase, we’ll be implementing a “Queue” feature on the Server, allowing Driver and Vendor clients to subscribe to messages added for pickup and delivered events within their respective client queues.
 
 ***
 
@@ -28,9 +28,8 @@ The intent here is to build the data services that would drive a suite of applic
 
 ### Collaborators
 
-- Referenced lecture demo for class 12 with instructor Ryan Gallaway
-- Reference lecture code review in class 13 with instructor Ryan Gallaway
-- Consulted TA Keleen for help on feature for clients joining rooms.
+- Referenced lecture demo for class 13 with instructor Ryan Gallaway
+- Reference lecture code review in class 14 with instructor Ryan Gallaway
 - Used AI to help write tests using a template I authored by referencing the tests from the lecture above and modifying it to my needs.
 
 
@@ -41,7 +40,7 @@ The intent here is to build the data services that would drive a suite of applic
 #### How to initialize this application
 1. Clone this repo into your local environment
 2. `npm init -y`
-3. `npm i jest chance eslin socket.io socket.io-client`
+3. `npm i jest chance eslint socket.io socket.io-client`
 4. Copy Code Fellows config files `cp -r ../seattle-code-javascript-401d53/configs/ .`
 
 #### `.env` requirements
@@ -54,27 +53,25 @@ The intent here is to build the data services that would drive a suite of applic
 
 #### Features
 
-CAPS Phase 1: Event Driven Applications
-- As a vendor, I want to alert the system when I have a package to be picked up.
-- As a driver, I want to be notified when there is a package to be delivered.
-- As a driver, I want to alert the system when I have picked up a package and it is in transit.
-- As a driver, I want to alert the system when a package has been delivered.
-- As a vendor, I want to be notified when my package has been delivered.
-- As a developer, I want to create network event driven system using Socket.io so that I can write code that responds to events originating from both servers and client applications
+In Phase 3, we are building a set of features to help manage deliveries made by CAPS Drivers. This will simulate a delivery driver receiving a list of orders from a Queue and “scanning” package codes on delivery. Retailers will be able to see in their dashboard or log, a list of all packages delivered in real time. Should a delivery driver deliver any packages while the retailer is not connected to the dashboard, the vendor client should be guaranteed to receive “delivery” notifications from the Queue system.
+
+- Here are the high level stories related to this new set of requirements.
+  - As a vendor, I want to “subscribe” to “delivered” notifications so that I know when my packages are delivered.
+  - As a vendor, I want to “catch up” on any “delivered” notifications that I might have missed so that I can see a complete log.
+  - As a driver, I want to “subscribe” to “pickup” notifications so that I know what packages to deliver.
+  - As a driver, I want to “catch up” on any “pickup” notifications I may have missed so that I can deliver everything.
+  - As a driver, I want a way to “scan” a delivery so that the vendors know when a package has been delivered.
+
+- And as developers, here are some of the development stories that are newly relevant to the above.
+  - As a developer, I want to create a system of tracking who is subscribing to each event.
+  - As a developer, I want to place all inbound messages into a “queue” so that my application knows what events are to be delivered.
+  - As a developer, I want to create a system for communicating when events have been delivered and received by subscribers.
+  - As a developer, I want to delete messages from the queue after they’ve been received by a subscriber, so that I don’t re-send them.
+  - As a developer, I want to create a system for allowing subscribers to retrieve all undelivered messages in their queue.
 
 #### Tests
 
 To run tests, use the command `npm test` in your terminal
-
- PASS  clients/vendor/vendor-handler.test.js
-  Vendor Handler
-    ✓ emit pickup message and vendor order payload (3 ms)
-    ✓ log delivered message and emit vendor thank you payload
-
- FAIL  clients/driver/driver-handler.test.js
-  Driver Handler
-    ✕ log pickup message and emit in-transit payload (1 ms)
-    ✕ log confirmation message and emit delivered payload (1 ms)
 
 #### UML
 ![UML image](UML_lab11.png)
