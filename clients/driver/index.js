@@ -9,6 +9,7 @@ const { handlePickup, handleDelivered }  = require('./handler');
 
 let socket = io('http://localhost:3001/caps');
 
+socket.emit('getAll', { queueId: 'driver' });
 
 socket.on('PICKUP', (payload) => {
   handlePickup(socket, payload);
