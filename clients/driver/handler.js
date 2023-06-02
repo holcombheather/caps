@@ -1,25 +1,18 @@
 'use strict';
 
-const io  = require('socket.io-client');
-const SERVER_URL = process.env.SERVER_URL || 'http://localhost:3001';
-let socket = io.connect(SERVER_URL);
-
-
-function handlePickup(payload) {
-  console.log(`DRIVER: picked up ${payload.orderId}`);
-  socket.emit('IN-TRANSIT', payload);
-
+function handlePickup(socket, payload) {
   setTimeout(() => {
-    handleDelivered(payload);
-  }, 3000);
+    socket.emit('JOIN', payload);
+    console.log('DRIVER: picked up', payload.orderId);
+    socket.emit('IN-TRANSIT', payload);
+  }, 1000);
 }
 
-
-function handleDelivered(payload) {
-  console.log(`DRIVER: delivered ${payload.orderId}`);
-  socket.emit('DELIVERED', payload);
+function handleDelivered(socket, payload) {
+  setTimeout(() => {
+    console.log('DRIVER: delivered', payload.orderId);
+    socket.emit('DELIVERED', payload);
+  }, 2000);
 }
 
 module.exports = { handlePickup, handleDelivered };
-
-

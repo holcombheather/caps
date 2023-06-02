@@ -10,9 +10,11 @@ A real-time service that allows for vendors, such as flower shops or restaurants
 
 ### Problem Domain
 
-**CAPS Phase 1**: Using build-in Node.js events to simulate realtime package delivery changes.
+**CAPS Phase 2**: Continue working on a multi-day build of our delivery tracking system, creating an event observable over a network with Socket.io.
 
-Begin the build of an application for a product called CAPS - The Code Academy Parcel Service. In this sprint, we’ll build out a system that emulates a real world supply chain. CAPS will simulate a delivery service where vendors (such a flower shops) will ship products using our delivery service and when our drivers deliver them, each vendor will be notified that their customers received what they purchased.
+In this phase, we’ll be moving away from using Node Events for managing a pool of events, instead refactoring to using the Socket.io libraries. This allows communication between Server and Client applications.
+
+The intent here is to build the data services that would drive a suite of applications where we can see pickups and deliveries in real-time.
 
 ***
 
@@ -26,9 +28,11 @@ Begin the build of an application for a product called CAPS - The Code Academy P
 
 ### Collaborators
 
-- Referenced lecture demo for class 11 with instructor Ryan Gallaway
+- Referenced lecture demo for class 12 with instructor Ryan Gallaway
+- Reference lecture code review in class 13 with instructor Ryan Gallaway
+- Consulted TA Keleen for help on feature for clients joining rooms.
 - Used AI to help write tests using a template I authored by referencing the tests from the lecture above and modifying it to my needs.
-- Used AI to help debug issues with event sequencing to correct setInterval and setTimeout.
+
 
 ***
 
@@ -37,7 +41,7 @@ Begin the build of an application for a product called CAPS - The Code Academy P
 #### How to initialize this application
 1. Clone this repo into your local environment
 2. `npm init -y`
-3. `npm i jest chance eslint`
+3. `npm i jest chance eslin socket.io socket.io-client`
 4. Copy Code Fellows config files `cp -r ../seattle-code-javascript-401d53/configs/ .`
 
 #### `.env` requirements
@@ -56,22 +60,21 @@ CAPS Phase 1: Event Driven Applications
 - As a driver, I want to alert the system when I have picked up a package and it is in transit.
 - As a driver, I want to alert the system when a package has been delivered.
 - As a vendor, I want to be notified when my package has been delivered.
-- As a developer, I want to use industry standards for managing the state of each package.
-- As a developer, I want to create an event driven system so that I can write code that happens in response to events, in real time.
+- As a developer, I want to create network event driven system using Socket.io so that I can write code that responds to events originating from both servers and client applications
 
 #### Tests
 
 To run tests, use the command `npm test` in your terminal
 
- PASS  vendor/vendor-handler.test.js
+ PASS  clients/vendor/vendor-handler.test.js
   Vendor Handler
-    ✓ emit pickup message and vendor order payload (2 ms)
-    ✓ log delivered message and emit vendor thank you payload (1 ms)
+    ✓ emit pickup message and vendor order payload (3 ms)
+    ✓ log delivered message and emit vendor thank you payload
 
- PASS  driver/driver-handler.test.js
+ FAIL  clients/driver/driver-handler.test.js
   Driver Handler
-    ✓ log pickup message and emit in-transit payload (1 ms)
-    ✓ log confirmation message and emit delivered payload
+    ✕ log pickup message and emit in-transit payload (1 ms)
+    ✕ log confirmation message and emit delivered payload (1 ms)
 
 #### UML
 ![UML image](UML_lab11.png)
