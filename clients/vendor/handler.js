@@ -16,4 +16,13 @@ function handleConfirmation(payload) {
   console.log(`Thank you for your order ${payload.customer}`);
 }
 
-module.exports = { vendorPayload, handleConfirmation }
+function testPayload() {
+  return {
+    store: '1-206-flowers',
+    orderId: '1234',
+    customer: 'Test Testerson',
+    address: '123 Test St',
+  }
+}
+
+module.exports = { vendorPayload, handleConfirmation, testPayload }
